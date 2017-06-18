@@ -1,6 +1,7 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import PopupMenu from './components/PopupMenu';
 
 export default class Setup extends Component {
   constructor() {
@@ -38,9 +39,10 @@ export default class Setup extends Component {
             <Title>Home</Title>
           </Body>
           <Right>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
+          <PopupMenu
+            actions={['Home','My Polls', 'New Poll', 'Logout']}
+            onPress={(e,i) => console.log(i)}
+          />
           </Right>
         </Header>
         <Content>
