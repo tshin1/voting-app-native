@@ -1,23 +1,62 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Expo from 'expo';
+import React, { Component } from 'react';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 
-export default class App extends React.Component {
+export default class Setup extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isReady: false,
+    };
+  }
+
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+      'Ionicons': require('native-base/Fonts/Ionicons.ttf'),
+    });
+
+    this.setState({isReady: true});
+  }
+
   render() {
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
+
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Container style={{marginTop: 25}}>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name='md-arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Home</Title>
+          </Body>
+          <Right>
+            <Button transparent>
+              <Icon name='menu' />
+            </Button>
+          </Right>
+        </Header>
+        <Content>
+          <Text style={{textAlign: 'center'}}>These are polls that you and other users have created.</Text>
+          <Text style={{textAlign: 'center'}}>Select a poll to see poll details and vote.</Text>
+          <Text style={{textAlign: 'center'}}>Log in with Twitter to create your own polls.</Text>
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button full>
+              <Text>Footer</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
   }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+}
