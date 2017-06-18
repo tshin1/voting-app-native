@@ -1,7 +1,9 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Drawer } from 'native-base';
+
 import PopupMenu from './components/PopupMenu';
+import MenuDrawer from './components/MenuDrawer';
 
 export default class Setup extends Component {
   constructor() {
@@ -22,6 +24,10 @@ export default class Setup extends Component {
     this.setState({isReady: true});
   }
 
+  twitterLogin = () => {
+    fetch('https://pollsta.herokuapp.com/polls/auth/twitter/')
+  }
+
   render() {
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
@@ -31,18 +37,16 @@ export default class Setup extends Component {
       <Container style={{marginTop: 25}}>
         <Header>
           <Left>
-            <Button transparent>
-              <Icon name='md-arrow-back' />
-            </Button>
+            <MenuDrawer>
+            </MenuDrawer>
+
           </Left>
           <Body>
-            <Title>Home</Title>
+            <Title>Create poll</Title>
           </Body>
           <Right>
-          <PopupMenu
-            actions={['Home','My Polls', 'New Poll', 'Logout']}
-            onPress={(e,i) => console.log(i)}
-          />
+
+
           </Right>
         </Header>
         <Content>
